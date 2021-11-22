@@ -3,25 +3,33 @@ package com.tnc.TestForNonUTF8Chars.file;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 public class ImportFileFromBucket {
 
     private static int lineNumber = 0;
-    private boolean appPassed;
-    private static int countNonUTFChar = 0;
+//    private static boolean validateAppPassing;
+    private static int countChars = 0;
+
 
     public static void readFile(String fileName) throws IOException {
+        var bufferedReader = new BufferedReader(new FileReader(fileName));
+        ArrayList<String> countArrayChars = new ArrayList<>();
         String strLine = "";
-        var bufferedReader = new BufferedReader(new FileReader(fileName, StandardCharsets.UTF_8));
-
         while ((strLine = bufferedReader.readLine()) != null) {
             lineNumber++;
-            validUTF8(strLine.getBytes(StandardCharsets.UTF_8));
-            System.out.println(lineNumber + " " + strLine);
+            validUTF8(strLine.getBytes());
+//            System.out.println(lineNumber + " " + strLine);
+            if (countChars == 0) {
+                continue;
+            }
+            countArrayChars.add("\n You have " + countChars + " non UTF 8 chars " + " on line " + lineNumber + ": " + "\n" + lineNumber + " " + strLine);
+//            trueOrFalseVerification();
+            countChars = 0;
         }
         bufferedReader.close();
-        testForUtf();
+//        isUtf8(trueOrFalseVerification());
+        System.out.println(countArrayChars);
     }
 
     public static boolean validUTF8(byte[] fileNameBytes) {
@@ -33,6 +41,7 @@ public class ImportFileFromBucket {
         }
 
         int end;
+        int countNonUTFChar = 0;
         for (int j = fileNameBytes.length; i < j; ++i) {
             int octet = fileNameBytes[i];
             if ((octet & 0x80) == 0) {
@@ -60,18 +69,23 @@ public class ImportFileFromBucket {
                 }
             }
             countNonUTFChar++;
-//            System.out.println("\nEXCEPTION///////////////////////////////////////" + " " + " on line " + lineNumber + "\n");
+            countChars = countNonUTFChar;
+
         }
-        System.out.println("\n You have " + countNonUTFChar + " " + " on line " + lineNumber + "\n");
         return true;
     }
 
-    public static boolean testForUtf() {
-        if (countNonUTFChar != 0) {
-            System.out.println("Wrong file format");
-            return false;
-        }
-        System.out.println("This file is UTF 8.");
-        return true;
-    }
+//    public static boolean trueOrFalseVerification(){
+//        if (countChars != 0) {
+//            validateAppPassing = true;
+//        }
+//        return true;
+//    }
+//
+//    public static void isUtf8(boolean b) {
+//
+//        if (!trueOrFalseVerification()) {
+//            System.out.println("Wrong file format");
+//        }
+//    }
 }
