@@ -8,27 +8,23 @@ import java.util.ArrayList;
 public class ImportFileFromBucket {
 
     private static int lineNumber = 0;
-//    private static boolean validateAppPassing;
     private static int countChars = 0;
 
 
     public static void readFile(String fileName) throws IOException {
         var bufferedReader = new BufferedReader(new FileReader(fileName));
         ArrayList<String> countArrayChars = new ArrayList<>();
-        String strLine = "";
-        while ((strLine = bufferedReader.readLine()) != null) {
+        String stringLine = "";
+        while ((stringLine = bufferedReader.readLine()) != null) {
             lineNumber++;
-            validUTF8(strLine.getBytes());
-//            System.out.println(lineNumber + " " + strLine);
+            validUTF8(stringLine.getBytes());
             if (countChars == 0) {
                 continue;
             }
-            countArrayChars.add("\n You have " + countChars + " non UTF 8 chars " + " on line " + lineNumber + ": " + "\n" + lineNumber + " " + strLine);
-//            trueOrFalseVerification();
+            countArrayChars.add("\n You have " + countChars + " non UTF 8 chars " + " on line " + lineNumber + ": " + "\n" + lineNumber + " " + stringLine);
             countChars = 0;
         }
         bufferedReader.close();
-//        isUtf8(trueOrFalseVerification());
         System.out.println(countArrayChars);
     }
 
@@ -64,28 +60,12 @@ public class ImportFileFromBucket {
                 i++;
                 octet = fileNameBytes[i];
                 if ((octet & 0xC0) != 0x80) {
-                    // Not a valid trailing byte
                     return false;
                 }
             }
             countNonUTFChar++;
             countChars = countNonUTFChar;
-
         }
         return true;
     }
-
-//    public static boolean trueOrFalseVerification(){
-//        if (countChars != 0) {
-//            validateAppPassing = true;
-//        }
-//        return true;
-//    }
-//
-//    public static void isUtf8(boolean b) {
-//
-//        if (!trueOrFalseVerification()) {
-//            System.out.println("Wrong file format");
-//        }
-//    }
 }
