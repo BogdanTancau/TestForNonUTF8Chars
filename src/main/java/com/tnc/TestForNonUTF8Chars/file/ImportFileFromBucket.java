@@ -10,25 +10,32 @@ public class ImportFileFromBucket {
     private static int lineNumber = 0;
     private static int countChars = 0;
 
-
-    public static void readFile(String fileName) throws IOException {
+    public static boolean readFile(String fileName) throws IOException {
         var bufferedReader = new BufferedReader(new FileReader(fileName));
-        ArrayList<String> countArrayChars = new ArrayList<>();
+        ArrayList<String> countNonUTF8Chars = new ArrayList<>();
         String stringLine = "";
         while ((stringLine = bufferedReader.readLine()) != null) {
             lineNumber++;
-            validUTF8(stringLine.getBytes());
+            checkFileIfContainsOnlyUTF8Chars(stringLine.getBytes());
             if (countChars == 0) {
                 continue;
+            } else {
+                countNonUTF8Chars.add("\n You have " + countChars + " non UTF 8 chars " + " on line " + lineNumber + ": " + "\n" + lineNumber + " " + stringLine);
+                countChars = 0;
             }
-            countArrayChars.add("\n You have " + countChars + " non UTF 8 chars " + " on line " + lineNumber + ": " + "\n" + lineNumber + " " + stringLine);
-            countChars = 0;
         }
         bufferedReader.close();
-        System.out.println(countArrayChars);
+        System.out.println(countNonUTF8Chars);
+        if (countNonUTF8Chars.isEmpty()) {
+            return true;
+            //move to the UTF8 directory
+        } else {
+            return false;
+            //move to the next test
+        }
     }
 
-    public static boolean validUTF8(byte[] fileNameBytes) {
+    public static boolean checkFileIfContainsOnlyUTF8Chars(byte[] fileNameBytes) {
         int i = 0;
         // Check for BOM
         if (fileNameBytes.length >= 3 && (fileNameBytes[0] & 0xFF) == 0xEF
