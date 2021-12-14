@@ -11,7 +11,8 @@ public class TestForNonUtf8CharsApplication {
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(TestForNonUtf8CharsApplication.class, args);
-		ReadFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/personal_test.txt");
-		ReadFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/new_file_test.txt");
+//		ReadFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/personal_test.txt");
+//		ReadFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/new_file_test.txt");
+		ReadFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/ascii_test.txt");
 	}
 }

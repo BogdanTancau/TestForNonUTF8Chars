@@ -15,7 +15,7 @@ public class VerifyFilesIfContainNonUtf8Chars {
         for (int j = fileNameBytes.length; i < j; ++i) {
             int octet = fileNameBytes[i];
             if ((octet & 0x80) == 0) {
-                continue; // ASCII
+                continue;
             }
 
             // Check for UTF-8 leading byte
@@ -26,10 +26,8 @@ public class VerifyFilesIfContainNonUtf8Chars {
             } else if ((octet & 0xF8) == 0xF0) {
                 end = i + 3;
             } else {
-                // Java only supports BMP-Basic Multilingual Plane so 3 is max
                 return false;
             }
-
             while (i < end) {
                 i++;
                 octet = fileNameBytes[i];
