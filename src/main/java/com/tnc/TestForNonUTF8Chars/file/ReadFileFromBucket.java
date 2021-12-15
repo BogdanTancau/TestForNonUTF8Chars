@@ -8,8 +8,10 @@ import java.io.IOException;
 
 public class ReadFileFromBucket {
 
-    public static void readFile(String fileName) throws IOException {
+    VerifyFilesAndCountErrors verifyFilesAndCountErrors = new VerifyFilesAndCountErrors();
+
+    public void readFile(String fileName) throws IOException {
         var bufferedReader = new BufferedReader(new FileReader(fileName));
-        VerifyFilesAndCountErrors.countErrorsIfExist(bufferedReader);
+        verifyFilesAndCountErrors.countErrorsIfExist(bufferedReader);
     }
 }

@@ -2,9 +2,10 @@ package com.tnc.TestForNonUTF8Chars.validation.verifyForUtf8;
 
 public class VerifyFilesIfContainNonUtf8Chars {
 
-    public static int countChars = 0;
+    private int countChars;
 
-    public static boolean checkFileIfContainsOnlyUTF8Chars(byte[] fileNameBytes) {
+    public boolean checkFileIfContainsOnlyUTF8Chars(byte[] fileNameBytes) {
+        countChars = 0;
         int i = 0;
         // Check for BOM - byte order mark
         if (fileNameBytes.length >= 3 && (fileNameBytes[0] & 0xFF) == 0xEF
@@ -38,5 +39,9 @@ public class VerifyFilesIfContainNonUtf8Chars {
             countChars++;
         }
         return true;
+    }
+
+    public int getCountChars() {
+        return countChars;
     }
 }
