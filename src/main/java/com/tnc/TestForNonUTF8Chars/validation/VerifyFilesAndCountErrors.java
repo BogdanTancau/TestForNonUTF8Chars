@@ -25,7 +25,6 @@ public class VerifyFilesAndCountErrors {
                 countNonUTF8Chars.add("\n You have " + countVerifier + " non UTF 8 chars " + " on line " + lineNumber + ": " + "\n" + lineNumber + " " + stringLine);
             }
         }
-//        bufferedReader.close();
         System.out.println(countNonUTF8Chars);
         System.out.println("\n---------------------------------------------------\n");
         if (countNonUTF8Chars.isEmpty()) {
@@ -33,9 +32,5 @@ public class VerifyFilesAndCountErrors {
         } else {
             //move to the next test
         }
-    }
-
-    public VerifyFilesIfContainNonUtf8Chars getVerifyFilesIfContainNonUtf8Chars() {
-        return verifyFilesIfContainNonUtf8Chars;
     }
 }
