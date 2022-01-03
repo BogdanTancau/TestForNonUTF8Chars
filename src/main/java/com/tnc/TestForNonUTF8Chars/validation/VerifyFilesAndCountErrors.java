@@ -1,7 +1,6 @@
 package com.tnc.TestForNonUTF8Chars.validation;
 
 import com.tnc.TestForNonUTF8Chars.validation.verifyForAscii.VerifyFilesIfContainAscii;
-import com.tnc.TestForNonUTF8Chars.validation.verifyForAscii.VerifyFilesIfContainAscii2;
 import com.tnc.TestForNonUTF8Chars.validation.verifyForUtf8.VerifyFilesIfContainNonUtf8Chars;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +18,17 @@ public class VerifyFilesAndCountErrors {
     private static Integer errorCounter = 0;
     private static Integer totalErrorCounter = 0;
 
+
     public void countErrorsIfExist(BufferedReader bufferedReader) throws IOException {
 //        ArrayList<String> countNonUTF8Chars = new ArrayList<>();
         String stringLine;
         while ((stringLine = bufferedReader.readLine()) != null) {
 //            lineNumber++;
-            verifyFilesIfContainNonUtf8Chars.checkFileIfContainsOnlyUTF8Chars(stringLine.getBytes());
-            VerifyFilesIfContainAscii.isAsciiEncoded(stringLine);
+            if (verifyFilesIfContainNonUtf8Chars.checkFileIfContainsOnlyUTF8Chars(stringLine.getBytes())){
+                continue;
+            }else {
+                VerifyFilesIfContainAscii.isAsciiEncoded(stringLine);
+            }
 //            VerifyFilesIfContainAscii2.isAsciiEncoded2(stringLine);
             errorCounter = verifyFilesIfContainNonUtf8Chars.getCharsCounter();
             if (errorCounter == 0) {
@@ -50,13 +53,12 @@ public class VerifyFilesAndCountErrors {
                     ---------------------------------------------------
                     """);
             //move to the UTF8 directory
-        } else {
-            logger.info("""
-                    ---------------------------------------------------
-                    You have %s non UTF 8 chars
-                    ---------------------------------------------------
-                    """.formatted(totalErrorCounter));
-            VerifyFilesIfContainAscii2.isAsciiEncoded2(stringLine);
+        } else if (errorCounter == 0 && totalErrorCounter != 0) {
+//            logger.info("""
+//                    ---------------------------------------------------
+//                    You have %s non UTF 8 chars
+//                    ---------------------------------------------------
+//                    """.formatted(totalErrorCounter));
 //            totalErrorCounter = 0;
             //-	UTF-8 and ASCII characters in the record -> send the file for processing
             // (the record goes to the “UTF-8” file and the comment goes to the LOG file with the

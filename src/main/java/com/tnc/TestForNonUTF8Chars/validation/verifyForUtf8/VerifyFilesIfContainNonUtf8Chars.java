@@ -36,7 +36,11 @@ public class VerifyFilesIfContainNonUtf8Chars {
             }
             charsCounter++;
         }
-        return true;
+        if (charsCounter == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int getCharsCounter() {
