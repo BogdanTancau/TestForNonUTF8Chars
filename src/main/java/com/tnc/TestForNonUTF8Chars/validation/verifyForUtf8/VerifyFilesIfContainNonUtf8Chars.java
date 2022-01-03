@@ -2,10 +2,10 @@ package com.tnc.TestForNonUTF8Chars.validation.verifyForUtf8;
 
 public class VerifyFilesIfContainNonUtf8Chars {
 
-    private int countChars;
+    private int charsCounter;
 
     public boolean checkFileIfContainsOnlyUTF8Chars(byte[] fileNameBytes) {
-        countChars = 0;
+        charsCounter = 0;
         int i = 0;
         if (fileNameBytes.length >= 3 && (fileNameBytes[0] & 0xFF) == 0xEF
                 && (fileNameBytes[1] & 0xFF) == 0xBB & (fileNameBytes[2] & 0xFF) == 0xBF) {
@@ -14,6 +14,7 @@ public class VerifyFilesIfContainNonUtf8Chars {
         int end;
         for (int j = fileNameBytes.length; i < j; ++i) {
             int octet = fileNameBytes[i];
+//            isAscii((char) octet);
             if ((octet & 0x80) == 0) {
                 continue;
             }
@@ -29,16 +30,16 @@ public class VerifyFilesIfContainNonUtf8Chars {
             while (i < end) {
                 i++;
                 octet = fileNameBytes[i];
-                if ((octet & 0xC0) != 0x80) {
+                if ((octet & 0xC0) < 0x80) {
                     return false;
                 }
             }
-            countChars++;
+            charsCounter++;
         }
         return true;
     }
 
-    public int getCountChars() {
-        return countChars;
+    public int getCharsCounter() {
+        return charsCounter;
     }
 }
