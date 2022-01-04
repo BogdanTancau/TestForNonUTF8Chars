@@ -5,56 +5,51 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
-public class VerifyFilesIfContainAscii {
+public class CheckFilesIfContainAscii {
 //    boolean isAscii = false;
 
-    private static final Logger logger = LoggerFactory.getLogger(VerifyFilesIfContainAscii.class);
-    static int count = 0;
+    private static final Logger logger = LoggerFactory.getLogger(CheckFilesIfContainAscii.class);
+    static int asciiCharsCounter = 0;
     static int badCharsCounter = 0;
     static final ArrayList<String> asciiCollector = new ArrayList<>();
     static final ArrayList<String> badCharacterCollector = new ArrayList<>();
 
-    public static void isAsciiEncoded(String fileNameBytes) {
-
-//        boolean isAscii;
+    public static boolean isAsciiEncoded(String fileNameBytes) {
         char[] charsArray = fileNameBytes.toCharArray();
         for (char chars : charsArray) {
-//            int c = fileNameBytes.charAt(chars);
             int numberOfBytes = CountNumberOfBytes.countNbBytesPerChar(chars);
             if (chars < 0x7F && numberOfBytes == 1) {
                 asciiCollector.add(String.valueOf(chars));
-//                System.out.println("ASCII HERE");
-//                System.out.println(numberOfBytes);
-                count++;
-                ////
-//                if (numberOfBytes <= 7) {
-//                isAscii = false;
+                asciiCharsCounter++;
             } else {
                 badCharacterCollector.add(String.valueOf(chars));
                 badCharsCounter++;
             }
-//            }
         }
-        if (count != 0) {
-            logger.info("""
-                    ---------------------------------------------------
-                    You have %s ASCII chars : %s
-                    ---------------------------------------------------
-                    """.formatted(count, asciiCollector));
-        } if (badCharsCounter != 0) {
+//        loggerInfoForAscii();
+//        asciiCollector.clear();
+//        badCharacterCollector.clear();
+//        badCharsCounter = 0;
+//        asciiCharsCounter = 0;
+        return false;
+    }
+
+    public static void loggerInfoForAscii() {
+        if (badCharsCounter != 0) {
             logger.info("""
                     ---------------------------------------------------
                     You have  %s  foreign characters: %s 
                     ---------------------------------------------------"""
                     .formatted(badCharsCounter, badCharacterCollector));
+
+        } else if (asciiCharsCounter != 0) {
+            logger.info("""
+                    ---------------------------------------------------
+                    UTF-8 and ASCII characters in the record %s ASCII chars : %s
+                    ---------------------------------------------------
+                    """.formatted(asciiCharsCounter, CheckFilesIfContainAscii.asciiCollector));
+            //create a log file
         }
-
-
-//        return false;
-        asciiCollector.clear();
-        badCharacterCollector.clear();
-        badCharsCounter = 0;
-        count = 0;
     }
 }
 

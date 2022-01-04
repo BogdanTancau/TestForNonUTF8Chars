@@ -1,6 +1,6 @@
 package com.tnc.TestForNonUTF8Chars.validation.verifyForUtf8;
 
-public class VerifyFilesIfContainNonUtf8Chars {
+public class CheckFilesIfContainNonUtf8Chars {
 
     private int charsCounter;
 
@@ -14,7 +14,6 @@ public class VerifyFilesIfContainNonUtf8Chars {
         int end;
         for (int j = fileNameBytes.length; i < j; ++i) {
             int octet = fileNameBytes[i];
-//            isAscii((char) octet);
             if ((octet & 0x80) == 0) {
                 continue;
             }
