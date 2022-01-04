@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 
 public class CheckFilesIfContainAscii {
-//    boolean isAscii = false;
-
     private static final Logger logger = LoggerFactory.getLogger(CheckFilesIfContainAscii.class);
     static int asciiCharsCounter = 0;
     static int badCharsCounter = 0;
@@ -26,11 +24,6 @@ public class CheckFilesIfContainAscii {
                 badCharsCounter++;
             }
         }
-//        loggerInfoForAscii();
-//        asciiCollector.clear();
-//        badCharacterCollector.clear();
-//        badCharsCounter = 0;
-//        asciiCharsCounter = 0;
         return false;
     }
 
@@ -38,17 +31,22 @@ public class CheckFilesIfContainAscii {
         if (badCharsCounter != 0) {
             logger.info("""
                     ---------------------------------------------------
-                    You have  %s  foreign characters: %s 
+                    You have  %s  foreign characters in the record: %s 
                     ---------------------------------------------------"""
                     .formatted(badCharsCounter, badCharacterCollector));
+            //-	Non-UTF-8/ASCII characters in the record -> the file does not go for processing
+            // (the record goes to the LOG file along with the list of non-UTF-8 format characters in it)
 
         } else if (asciiCharsCounter != 0) {
             logger.info("""
                     ---------------------------------------------------
-                    UTF-8 and ASCII characters in the record %s ASCII chars : %s
+                    UTF-8 and ASCII characters in the record.This record have %s ASCII chars : %s
                     ---------------------------------------------------
                     """.formatted(asciiCharsCounter, CheckFilesIfContainAscii.asciiCollector));
             //create a log file
+            //-	UTF-8 and ASCII characters in the record -> send the file for processing
+            // (the record goes to the “UTF-8” file and the comment goes to the LOG file with the
+            // list of ASCII format characters as a note)
         }
     }
 }
