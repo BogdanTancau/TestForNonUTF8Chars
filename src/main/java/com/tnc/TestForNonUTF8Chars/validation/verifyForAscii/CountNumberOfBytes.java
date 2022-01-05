@@ -14,23 +14,6 @@ public class CountNumberOfBytes {
 
     private static final int CHAR_SIX_BYTES_MASK = 0x80000000;
 
-    public static final int countBytes(char[] chars) {
-        if (chars == null) {
-            return 0;
-        }
-
-        int nbBytes = 0;
-        int currentPos = 0;
-
-        while (currentPos < chars.length) {
-            int nbb = countNbBytesPerChar(chars[currentPos]);
-            currentPos += (nbb < 4 ? 1 : 2);
-            nbBytes += nbb;
-        }
-
-        return nbBytes;
-    }
-
     public static final int countNbBytesPerChar(char chars) {
         if ((chars & CHAR_ONE_BYTE_MASK) == 0) {
             return 1;

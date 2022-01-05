@@ -25,7 +25,7 @@ public class CheckFilesIfContainNonUtf8Chars {
             } else {
                 return false;
             }
-            while (i < end ) {
+            while (i < end) {
                 i++;
                 octet = fileNameBytes[i];
                 if ((octet & 0xC0) < 0x80) {
