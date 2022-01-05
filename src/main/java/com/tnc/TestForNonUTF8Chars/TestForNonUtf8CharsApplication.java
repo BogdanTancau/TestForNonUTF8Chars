@@ -15,10 +15,10 @@ public class TestForNonUtf8CharsApplication {
         SpringApplication.run(TestForNonUtf8CharsApplication.class, args);
 //		readFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/personal_test.txt");
 //		readFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/non_ascii.txt");
-        readFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/new_file_test.txt");
+//        readFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/new_file_test.txt");
 //		readFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/ascii_test.txt");
 //		readFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/DocsFromMila/Mail_1_Sal_Location/SAL_Location_fuer_SIS_ATOS.txt");
 //		readFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/ascii.txt");
-//		readFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/unicod.txt");
+		readFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/unicod.txt");
     }
 }
