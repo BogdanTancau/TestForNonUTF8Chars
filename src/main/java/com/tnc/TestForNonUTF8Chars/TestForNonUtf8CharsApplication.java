@@ -20,5 +20,6 @@ public class TestForNonUtf8CharsApplication {
 //		readFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/DocsFromMila/Mail_1_Sal_Location/SAL_Location_fuer_SIS_ATOS.txt");
 //		readFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/ascii.txt");
 		readFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/unicod.txt");
+//		readFileFromBucket.readFile("C:/Users/a830083/Desktop/DDO/TestForNonUTF8Chars/src/main/resources/testutf.txt");
     }
 }
